@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+option csharp_namespace = "RockPaperScissorsServer.Protos";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+package rockpaperscissors;
+ 
+service MatchService{
+  rpc MoneyTrans(CreateTrans) returns (UserData);
+  rpc CheckBalance(GetUserReq) returns (UserData);
+  rpc CreateMatch(CreateMatchRequest) returns (MatchData);
+  rpc ListMatches(google.protobuf.Empty) returns (ListData);
+  rpc MatchConnect(RivelData) returns (MatchData);
+}
+
+
+message RivelData{
+	int32 matchId = 1;
+  google.protobuf.StringValue rivelName = 2;
+  google.protobuf.StringValue rivelHand = 3;
+}
+
+message ListData{
+	repeated MatchData Matches = 1;
+}
+ 
+message CreateMatchRequest{
+  double bet = 1;
+  string createrName = 2;
+  string createrHand = 3;
+}
+
+message MatchData{
+	int32 id = 1;
+  google.protobuf.Timestamp dateTime = 2;
+  double bet = 3;
+  string createrName = 4;
+  string createrHand = 5;
+  google.protobuf.StringValue rivelName = 6;
+  google.protobuf.StringValue rivelHand = 7;
+  google.protobuf.StringValue winner = 8;
+  google.protobuf.StringValue loser = 9;
+}
+
+message CreateTrans{
+	string senderName = 1;
+  string recipientName= 2;
+  double amountMoney = 3;
+}
+
+message GetUserReq{
+	int32 id = 1;
+	string name = 2;
+}
+
+message UserData{
+	int32 id = 1;
+	string name = 2;
+	double balance = 3;
+}

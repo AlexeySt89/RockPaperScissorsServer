@@ -1,0 +1,32 @@
+syntax = "proto3";
+ 
+package crud;
+ 
+import "google/protobuf/empty.proto";
+ 
+service UserService{
+ 
+  rpc CreateUser(CreateUserRequest) returns (UserReply);
+  rpc UpdateUser(UpdateUserRequest) returns (UserReply);
+  rpc DeleteUser(DeleteUserRequest) returns (UserReply);
+}
+ 
+message CreateUserRequest{
+  string name=1;
+}
+
+message UpdateUserRequest{
+	string oldName = 1;
+  string newName=2;
+  double balance = 3;
+}
+ 
+message DeleteUserRequest{
+  string name =1;
+}
+ 
+message UserReply{
+  int32 id = 1;
+  string name=2;
+  double balance = 3;
+}
